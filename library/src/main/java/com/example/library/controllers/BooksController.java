@@ -1,46 +1,77 @@
 
 package com.example.library.controllers;
 
-import java.awt.print.Book;
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.util.List;
 import java.util.Optional;
 
-import javax.sql.DataSource;
-
-import org.springframework.boot.SpringApplication;
-import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.context.ApplicationContext;
-import org.springframework.context.support.ClassPathXmlApplicationContext;
-import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.jpa.repository.support.JpaRepositoryFactory;
-import org.springframework.data.repository.support.Repositories;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.example.library.entities.Books;
+import com.example.library.entities.Book;
 import com.example.library.repositories.BooksRepository;
 
 
 @RestController
-@RequestMapping("book")
+@RequestMapping("books")
 public class BooksController {
 
-	@GetMapping(path = "/{id}", produces = "application/json")
-	public Books getBook(@PathVariable int id) {
+	@Autowired
+	BooksRepository booksRepository;
+	
+	@GetMapping()	
+	public List<Book> getBooks(@RequestParam(required = false) String publisher, @RequestParam(required = false) String title) {
 		
-		return null;			
+		if (publisher == null && title == null)
+			return (List<Book>) booksRepository.findAll();
+		return (List<Book>) booksRepository.findByPublisherOrTitle(publisher, title);
 	}
-
-	@PostMapping()
-	public String postBook() {
-		return "Post book.";
+	
+	@GetMapping("/search")	
+	public List<Book> searchBooks(@RequestParam String title) {
+		return (List<Book>) booksRepository.searchByTitle(title);
 	}
+	
+	@GetMapping(path = "/{id}", produces = "application/json")
+	public Optional<Book> getBookById(@PathVariable int id) {
+		
+		return booksRepository.findById(id);			
+	}
+	
+	@PostMapping
+	  public Book createBook(@RequestBody Book newBook) {
+	    return booksRepository.save(newBook);
+	  }
+	
+	@DeleteMapping(path = "/{id}", produces = "application/json")
+    public boolean deleteBook(@PathVariable int id) {
+		try {
+			booksRepository.deleteById(id);
+			return true;
+		} catch (Exception e) {
+			return false;
+		}
+		
+    }
+	
+	@PutMapping(path="/{id}", produces = "application/json")
+	  public Optional<Object> updateBook(@RequestBody Book newBook, @PathVariable int id) {
+		
+	    return booksRepository.findById(id)
+	      .map(book -> {
+	        book.setTitle(newBook.getTitle());
+	        book.setPublisher(newBook.getPublisher());
+	        book.setPublicationYear(newBook.getPublicationYear());
+	        book.setNumPages(newBook.getNumPages());
+	        return booksRepository.save(book);
+	      });
+	  }
 
 }
