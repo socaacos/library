@@ -9,7 +9,6 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 import com.example.library.entities.Book;
 
-@EnableTransactionManagement
 public interface BooksRepository extends CrudRepository<Book, Integer> {
 	
 	public List<Book> findByPublisherOrTitle(String publisher, String title);
