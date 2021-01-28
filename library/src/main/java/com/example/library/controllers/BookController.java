@@ -17,75 +17,57 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import com.example.library.entities.Book;
-import com.example.library.repositories.BooksRepository;
+import com.example.library.repositories.BookRepository;
+import com.example.library.services.BookService;
 
 @RestController
 @RequestMapping("books")
-public class BooksController {
-
+public class BookController {
+	
 	@Autowired
-	BooksRepository booksRepository;
+	BookService bookService;
 	
 	@GetMapping()	
 	public ResponseEntity<List<Book>> getBooks(@RequestParam(required = false) String publisher, @RequestParam(required = false) String title) {
 		
 		if (publisher == null && title == null)
-			return ResponseEntity.ok((List<Book>) booksRepository.findAll());
+			return ResponseEntity.ok(bookService.getAll());
 		
-		return ResponseEntity.ok((List<Book>) booksRepository.findByPublisherOrTitle(publisher, title));
+		return ResponseEntity.ok(bookService.getByPublisherOrTitle(publisher, title));
 	}
 	
 	@GetMapping("/search")	
 	public ResponseEntity<List<Book>> searchBooks(@RequestParam String title) {
-		return ResponseEntity.ok((List<Book>) booksRepository.searchByTitle(title));
+		return ResponseEntity.ok(bookService.searchByTitle(title));
 	}
 	
 	@GetMapping(path = "/{id}", produces = "application/json")
 	public ResponseEntity<Book> getBookById(@PathVariable int id) {
-		
-		Optional<Book> book = booksRepository.findById(id);
-		
-		if (book.isPresent())
-		{
-			return ResponseEntity.ok(book.get());
-		}
-		else
-		{
-			return ResponseEntity.notFound().build();
-		}
+		Book book = bookService.getById(id);
+		return ResponseEntity.ok(book);	
 	}
 	
 	@PostMapping
 	public ResponseEntity<Book> createBook(@RequestBody Book newBook) {
-	    return ResponseEntity.ok(booksRepository.save(newBook));
+		
+		Book book = bookService.create(newBook);
+	    return ResponseEntity.ok(book);
 	}
 	
 	@DeleteMapping(path = "/{id}", produces = "application/json")
     public ResponseEntity<String> deleteBook(@PathVariable int id) {
-		booksRepository.deleteById(id);
+		bookService.delete(id);
 		return ResponseEntity.ok("Successfuly deleted.");
 		
     }
 	
 	@PutMapping(path="/{id}", produces = "application/json")
-	  public ResponseEntity<Book> updateBook(@RequestBody Book newBook, @PathVariable int id) {
+	public ResponseEntity<Book> updateBook(@PathVariable int id, @RequestBody Book newBook) {
 		
-	    Optional<Book> b =  booksRepository.findById(id);
+		Book book = bookService.update(id, newBook);
+		
+		return ResponseEntity.ok(book);	
 	    
-	    if (b.isPresent())
-	    {
-	    	Book book = b.get();
-	    	book.setNumPages(newBook.getNumPages());
-	    	book.setTitle(newBook.getTitle());
-	    	book.setPublicationYear(newBook.getPublicationYear());
-	    	book.setPublisher(newBook.getPublisher());
-	    	
-	    	return ResponseEntity.ok(booksRepository.save(book));
-	    }
-	    else
-	    {
-	    	return ResponseEntity.notFound().build();
-	    }
-	  }
+	}
 
 }

@@ -9,7 +9,7 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 import com.example.library.entities.Book;
 
-public interface BooksRepository extends CrudRepository<Book, Integer> {
+public interface BookRepository extends CrudRepository<Book, Integer> {
 	
 	public List<Book> findByPublisherOrTitle(String publisher, String title);
 	
