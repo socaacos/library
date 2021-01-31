@@ -6,7 +6,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Entity
@@ -28,6 +27,8 @@ public class Book {
 	private int publicationYear;
 	
 	@Column(name = "num_pages")
-	private int numPages;	
+	private int numPages;
+	
+	
 	
 }

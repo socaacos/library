@@ -2,10 +2,8 @@
 package com.example.library.controllers;
 
 import java.util.List;
-import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -16,12 +14,15 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+
 import com.example.library.entities.Book;
-import com.example.library.repositories.BookRepository;
 import com.example.library.services.BookService;
+
+import lombok.extern.slf4j.Slf4j;
 
 @RestController
 @RequestMapping("books")
+@Slf4j
 public class BookController {
 	
 	@Autowired
@@ -31,8 +32,11 @@ public class BookController {
 	public ResponseEntity<List<Book>> getBooks(@RequestParam(required = false) String publisher, @RequestParam(required = false) String title) {
 		
 		if (publisher == null && title == null)
+		{
+			log.info("Get all");
 			return ResponseEntity.ok(bookService.getAll());
-		
+		}
+		log.info("Get all");
 		return ResponseEntity.ok(bookService.getByPublisherOrTitle(publisher, title));
 	}
 	

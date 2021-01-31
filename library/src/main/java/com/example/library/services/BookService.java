@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.example.library.entities.Book;
+import com.example.library.exceptions.NotFoundException;
 import com.example.library.repositories.BookRepository;
 
 @Service
@@ -28,7 +29,7 @@ public class BookService {
 		if(bookOptional.isPresent())
 			return bookOptional.get();
 		else
-			return null;		
+			throw new NotFoundException();
 	}
 	
 	public List<Book> getByPublisherOrTitle(String publisher, String title)
