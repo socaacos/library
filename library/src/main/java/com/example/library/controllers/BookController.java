@@ -1,10 +1,11 @@
 
 package com.example.library.controllers;
 
+import java.util.ArrayList;
 import java.util.List;
 
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -13,8 +14,10 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.example.library.dtos.BookDto;
 import com.example.library.entities.Book;
 import com.example.library.services.BookService;
 
@@ -28,49 +31,75 @@ public class BookController {
 	@Autowired
 	BookService bookService;
 	
-	@GetMapping()	
-	public ResponseEntity<List<Book>> getBooks(@RequestParam(required = false) String publisher, @RequestParam(required = false) String title) {
+	@Autowired
+	ModelMapper modelMapper;
+	
+	@GetMapping()
+	@ResponseBody
+	public List<BookDto> getBooks(@RequestParam(required = false) String publisher, @RequestParam(required = false) String title) {
 		
 		if (publisher == null && title == null)
 		{
-			log.info("Get all");
-			return ResponseEntity.ok(bookService.getAll());
+			List<Book> books = bookService.getAll();
+			List<BookDto> bookDtos = new ArrayList<BookDto>();
+			for (Book book : books) {
+				bookDtos.add(modelMapper.map(book, BookDto.class));
+			}
+						
+			return bookDtos;
 		}
-		log.info("Get all");
-		return ResponseEntity.ok(bookService.getByPublisherOrTitle(publisher, title));
+		List<Book> books = bookService.getByPublisherOrTitle(publisher, title);
+		List<BookDto> bookDtos = new ArrayList<BookDto>();
+		for (Book book : books) {
+			bookDtos.add(modelMapper.map(book, BookDto.class));
+		}
+					
+		return bookDtos;
 	}
 	
-	@GetMapping("/search")	
-	public ResponseEntity<List<Book>> searchBooks(@RequestParam String title) {
-		return ResponseEntity.ok(bookService.searchByTitle(title));
+	@GetMapping("/search")
+	@ResponseBody
+	public List<BookDto> searchBooks(@RequestParam String title) {
+		List<Book> books =  bookService.searchByTitle(title);
+		
+		List<BookDto> bookDtos = new ArrayList<BookDto>();
+		for (Book book : books) {
+			bookDtos.add(modelMapper.map(book, BookDto.class));
+		}
+					
+		return bookDtos;
 	}
 	
 	@GetMapping(path = "/{id}", produces = "application/json")
-	public ResponseEntity<Book> getBookById(@PathVariable int id) {
+	@ResponseBody
+	public BookDto getBookById(@PathVariable int id) {
 		Book book = bookService.getById(id);
-		return ResponseEntity.ok(book);	
+		BookDto bookDto = modelMapper.map(book, BookDto.class);
+		return bookDto;
 	}
 	
 	@PostMapping
-	public ResponseEntity<Book> createBook(@RequestBody Book newBook) {
-		
-		Book book = bookService.create(newBook);
-	    return ResponseEntity.ok(book);
+	@ResponseBody
+	public BookDto createBook(@RequestBody BookDto newBookDto) {
+		Book book = modelMapper.map(newBookDto, Book.class);
+		Book newBook = bookService.create(book);
+	    return modelMapper.map(newBook, BookDto.class);
 	}
 	
 	@DeleteMapping(path = "/{id}", produces = "application/json")
-    public ResponseEntity<String> deleteBook(@PathVariable int id) {
+	@ResponseBody
+    public String deleteBook(@PathVariable int id) {
 		bookService.delete(id);
-		return ResponseEntity.ok("Successfuly deleted.");
+		return "Successfuly deleted.";
 		
-    }
+    }	
 	
 	@PutMapping(path="/{id}", produces = "application/json")
-	public ResponseEntity<Book> updateBook(@PathVariable int id, @RequestBody Book newBook) {
-		
-		Book book = bookService.update(id, newBook);
-		
-		return ResponseEntity.ok(book);	
+	@ResponseBody
+	public BookDto updateBook(@PathVariable int id, @RequestBody BookDto newBookDto) {
+		Book book = modelMapper.map(newBookDto, Book.class);		
+		Book newBook = bookService.update(id, book);		
+		return modelMapper.map(newBook, BookDto.class);	
 	    
 	}
 
