@@ -1,10 +1,8 @@
 package com.example.library.dtos;
 
-import lombok.Getter;
-import lombok.Setter;
+import lombok.Data;
 
-@Getter
-@Setter
+@Data
 public class BookDto 
 {
 	private Integer id;

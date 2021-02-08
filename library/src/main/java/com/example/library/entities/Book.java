@@ -5,11 +5,12 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 
+import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 
 @Entity
-@Getter @Setter
+@Data
 public class Book {
 
 	@Id
@@ -26,8 +27,6 @@ public class Book {
 	private int publicationYear;
 	
 	@Column(name = "num_pages")
-	private int numPages;
-	
-	
+	private int numPages;	
 	
 }

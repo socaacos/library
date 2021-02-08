@@ -4,6 +4,7 @@ package com.example.library.controllers;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.aspectj.lang.annotation.Pointcut;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -36,6 +37,7 @@ public class BookController {
 	
 	@GetMapping()
 	@ResponseBody
+	@Pointcut("execution(*com.example.library")
 	public List<BookDto> getBooks(@RequestParam(required = false) String publisher, @RequestParam(required = false) String title) {
 		
 		if (publisher == null && title == null)
