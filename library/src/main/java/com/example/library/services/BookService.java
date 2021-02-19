@@ -6,6 +6,7 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.example.library.entities.Author;
 import com.example.library.entities.Book;
 import com.example.library.exceptions.BookNotFoundException;
 import com.example.library.repositories.BookRepository;
@@ -32,9 +33,9 @@ public class BookService {
 			throw new BookNotFoundException();
 	}
 	
-	public List<Book> getByPublisherOrTitle(String publisher, String title)
+	public List<Book> getByPublisherOrTitle(Author author, String title)
 	{
-		return (List<Book>)booksRepository.findByPublisherOrTitle(publisher, title);
+		return (List<Book>)booksRepository.findByAuthorOrTitle(author, title);
 	}
 	
 	public List<Book> searchByTitle(String title)
@@ -58,7 +59,7 @@ public class BookService {
 		Book book = getById(id);		
 		book.setNumPages(newBook.getNumPages());
 		book.setPublicationYear(newBook.getPublicationYear());
-		book.setPublisher(newBook.getPublisher());
+		book.setAuthor(newBook.getAuthor());
 		book.setTitle(newBook.getTitle());
 		
 		return booksRepository.save(book);

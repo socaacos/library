@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.aspectj.lang.annotation.Pointcut;
+import org.mapstruct.factory.Mappers;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -19,6 +20,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.library.dtos.BookDto;
+import com.example.library.dtos.IBookMapper;
+import com.example.library.entities.Author;
 import com.example.library.entities.Book;
 import com.example.library.services.BookService;
 
@@ -34,13 +37,14 @@ public class BookController {
 	
 	@Autowired
 	ModelMapper modelMapper;
+//	IBookMapper bookMapper = Mappers.getMapper(IBookMapper.class);
+
 	
 	@GetMapping()
 	@ResponseBody
-	@Pointcut("execution(*com.example.library")
-	public List<BookDto> getBooks(@RequestParam(required = false) String publisher, @RequestParam(required = false) String title) {
+	public List<BookDto> getBooks(@RequestParam(required = false) Author author, @RequestParam(required = false) String title) {
 		
-		if (publisher == null && title == null)
+		if (author == null && title == null)
 		{
 			List<Book> books = bookService.getAll();
 			List<BookDto> bookDtos = new ArrayList<BookDto>();
@@ -50,7 +54,7 @@ public class BookController {
 						
 			return bookDtos;
 		}
-		List<Book> books = bookService.getByPublisherOrTitle(publisher, title);
+		List<Book> books = bookService.getByPublisherOrTitle(author, title);
 		List<BookDto> bookDtos = new ArrayList<BookDto>();
 		for (Book book : books) {
 			bookDtos.add(modelMapper.map(book, BookDto.class));

@@ -5,16 +5,13 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.ManyToOne;
 
 import lombok.Data;
-import lombok.Getter;
-import lombok.Setter;
 
 @Entity
 @Data
 
-public class Book {
+public class Author {
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
@@ -22,16 +19,5 @@ public class Book {
 	private Integer id;
 	
 	@Column
-	private String title;
-	
-	
-	@ManyToOne
-	private Author author;
-	
-	@Column(name = "publication_year")
-	private int publicationYear;
-	
-	@Column(name = "num_pages")
-	private int numPages;	
-	
+	private String name;
 }

@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="src" path="library/.mvn/wrapper"/>
+	<classpathentry kind="src" path="library/src/main/java"/>
+	<classpathentry kind="src" path="library/src/test/java"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER">
+		<attributes>
+			<attribute name="module" value="true"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="C:/Users/Sofi/Downloads/postgresql-42.2.18.jar">
+		<attributes>
+			<attribute name="module" value="true"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="C:/Users/Sofi/Downloads/lombok.jar">
+		<attributes>
+			<attribute name="module" value="true"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="C:/Users/Sofi/Downloads/hibernate-distribution-3.6.4.Final-dist/hibernate-distribution-3.6.4.Final/hibernate3.jar">
+		<attributes>
+			<attribute name="module" value="true"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="C:/Users/Sofi/Downloads/hibernate-distribution-3.6.4.Final-dist/hibernate-distribution-3.6.4.Final/lib/required/antlr-2.7.6.jar">
+		<attributes>
+			<attribute name="module" value="true"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="C:/Users/Sofi/Downloads/hibernate-distribution-3.6.4.Final-dist/hibernate-distribution-3.6.4.Final/lib/required/commons-collections-3.1.jar">
+		<attributes>
+			<attribute name="module" value="true"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="C:/Users/Sofi/Downloads/hibernate-distribution-3.6.4.Final-dist/hibernate-distribution-3.6.4.Final/lib/required/dom4j-1.6.1.jar">
+		<attributes>
+			<attribute name="module" value="true"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="C:/Users/Sofi/Downloads/hibernate-distribution-3.6.4.Final-dist/hibernate-distribution-3.6.4.Final/lib/required/javassist-3.12.0.GA.jar">
+		<attributes>
+			<attribute name="module" value="true"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="C:/Users/Sofi/Downloads/hibernate-distribution-3.6.4.Final-dist/hibernate-distribution-3.6.4.Final/lib/required/jta-1.1.jar">
+		<attributes>
+			<attribute name="module" value="true"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="C:/Users/Sofi/Downloads/hibernate-distribution-3.6.4.Final-dist/hibernate-distribution-3.6.4.Final/lib/required/slf4j-api-1.6.1.jar">
+		<attributes>
+			<attribute name="module" value="true"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="C:/Users/Sofi/Downloads/hibernate-distribution-3.6.4.Final-dist/hibernate-distribution-3.6.4.Final/lib/jpa/hibernate-jpa-2.0-api-1.0.0.Final.jar">
+		<attributes>
+			<attribute name="module" value="true"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="C:/Users/Sofi/Downloads/hibernate-distribution-3.6.4.Final-dist/hibernate-distribution-3.6.4.Final/lib/bytecode/javassist/javassist-3.12.0.GA.jar">
+		<attributes>
+			<attribute name="module" value="true"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="output" path="library/target/classes"/>
+</classpath>

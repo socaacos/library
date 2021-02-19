@@ -9,11 +9,9 @@ import org.springframework.data.repository.query.Param;
 import com.example.library.entities.Author;
 import com.example.library.entities.Book;
 
-public interface BookRepository extends CrudRepository<Book, Integer> {
+public interface AuthorRepository extends CrudRepository<Author, Integer> {
 	
-	public List<Book> findByAuthorOrTitle(Author author, String title);
-	
-	@Query("select b from Book b where b.title like '%'|| :title||'%'")
-	public List<Book> searchByTitle(@Param("title") String title);
+	@Query("select a from Author a where a.name like '%'|| :name ||'%'")
+	public List<Author> searchByName(@Param("name") String name);
 
 }
