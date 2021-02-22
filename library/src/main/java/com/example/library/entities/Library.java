@@ -1,10 +1,15 @@
 package com.example.library.entities;
 
+import java.util.ArrayList;
+import java.util.Collection;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
 import javax.persistence.OneToOne;
 
 import lombok.Data;
@@ -19,6 +24,9 @@ public class Library {
 	
 	@Column
 	private String libraryName;
+	
+	@ManyToMany(mappedBy = "libraries",  cascade = CascadeType.ALL)
+	Collection<Book> books = new ArrayList<Book>();
 	
 	@OneToOne
 	private City city;

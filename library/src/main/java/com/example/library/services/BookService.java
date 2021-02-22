@@ -11,8 +11,10 @@ import com.example.library.entities.Book;
 import com.example.library.exceptions.BookNotFoundException;
 import com.example.library.repositories.BookRepository;
 
-@Service
+import lombok.extern.slf4j.Slf4j;
 
+@Service
+@Slf4j
 public class BookService {
 	
 	@Autowired
@@ -54,11 +56,13 @@ public class BookService {
 		booksRepository.delete(book);
 	}
 	
+	
 	public Book update(int id, Book newBook)
 	{
 		Book book = getById(id);		
 		book.setNumPages(newBook.getNumPages());
 		book.setPublicationYear(newBook.getPublicationYear());
+		book.setLibraries(newBook.getLibraries());
 		book.setAuthor(newBook.getAuthor());
 		book.setTitle(newBook.getTitle());
 		

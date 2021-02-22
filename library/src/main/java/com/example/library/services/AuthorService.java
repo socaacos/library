@@ -5,16 +5,22 @@ import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.EnableTransactionManagement;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.example.library.entities.Author;
 import com.example.library.exceptions.BookNotFoundException;
 import com.example.library.repositories.AuthorRepository;
+import com.example.library.repositories.BookRepository;
 @Service
 
 public class AuthorService {
 	
 	@Autowired
 	AuthorRepository  authorRepository;
+	
+	@Autowired
+	BookRepository  bookRepository;
 	
 	public List<Author> getAll()
 	{
@@ -44,8 +50,11 @@ public class AuthorService {
 	public void delete(int id)
 	{
 		Author author = getById(id);
-		if(author != null)
+		if(author != null )
+		{
+			bookRepository.deleteByAuthor(author);
 			authorRepository.delete(author);
+		}
 		else
 			System.out.println("Nema autora");
 	}

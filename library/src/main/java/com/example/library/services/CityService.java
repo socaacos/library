@@ -10,12 +10,16 @@ import com.example.library.entities.Author;
 import com.example.library.entities.City;
 import com.example.library.exceptions.BookNotFoundException;
 import com.example.library.repositories.CityRepository;
+import com.example.library.repositories.LibraryRepository;
 
 @Service
 public class CityService {
 	
 	@Autowired
 	CityRepository cityRepository;
+	
+	@Autowired
+	LibraryRepository libraryRepository;
 	
 	public List<City> getAll()
 	{
@@ -40,8 +44,11 @@ public class CityService {
 	public void delete(int id)
 	{
 		City city = getById(id);
-		if(city != null)
+		if(city != null) {
+			libraryRepository.deleteByCity(city);
 			cityRepository.delete(city);
+		}
+			
 		else
 			System.out.println("Nema grada!");
 	}

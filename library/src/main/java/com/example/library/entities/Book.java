@@ -1,15 +1,21 @@
 package com.example.library.entities;
 
+import java.util.ArrayList;
+import java.util.Collection;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import lombok.Data;
-import lombok.Getter;
-import lombok.Setter;
 
 @Entity
 @Data
@@ -24,9 +30,12 @@ public class Book {
 	@Column
 	private String title;
 	
-	
 	@ManyToOne
 	private Author author;
+	
+    
+	@ManyToMany( cascade = CascadeType.MERGE, fetch = FetchType.LAZY)
+	Collection<Library> libraries = new ArrayList<Library>();
 	
 	@Column(name = "publication_year")
 	private int publicationYear;

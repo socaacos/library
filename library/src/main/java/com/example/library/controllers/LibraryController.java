@@ -89,7 +89,7 @@ public class LibraryController {
 	public LibraryDto updateLibrary(@PathVariable int id, @RequestBody LibraryDto newLibraryDto) {
 		Library library = modelMapper.map(newLibraryDto, Library.class);		
 		Library newLibrary = libraryService.update(id, library);		
-		return modelMapper.map(newLibraryDto, LibraryDto.class);	
+		return modelMapper.map(newLibrary, LibraryDto.class);	
 	    
 	}
 

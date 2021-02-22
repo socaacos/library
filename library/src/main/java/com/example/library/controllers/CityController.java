@@ -86,7 +86,7 @@ public class CityController {
 	public CityDto updateCity(@PathVariable int id, @RequestBody CityDto newCityDto) {
 		City city = modelMapper.map(newCityDto, City.class);		
 		City newCity = cityService.update(id, city);		
-		return modelMapper.map(newCityDto, CityDto.class);	
+		return modelMapper.map(newCity, CityDto.class);	
 	    
 	}
 
