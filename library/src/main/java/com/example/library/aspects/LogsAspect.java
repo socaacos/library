@@ -57,7 +57,7 @@ public class LogsAspect {
 		
 		Object retVal = jp.proceed();
 		log.info("Finished " + description + " : " + jp.toString());
-		log.info( "Return value in " + description + " is: "+retVal.toString());
+		//log.info( "Return value in " + description + " is: "+retVal.toString());
 		return retVal;
 	}
 }

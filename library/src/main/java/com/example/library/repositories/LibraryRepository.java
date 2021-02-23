@@ -10,7 +10,7 @@ import com.example.library.entities.City;
 import com.example.library.entities.Library;
 
 
-
+@Transactional
 public interface LibraryRepository extends CrudRepository<Library, Integer> {
 	
 	@Query("select l from Library l where l.libraryName like '%'|| :libraryName ||'%'")

@@ -13,7 +13,7 @@ import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import lombok.Data;
 
@@ -33,7 +33,7 @@ public class Book {
 	@ManyToOne
 	private Author author;
 	
-    
+	@JsonIgnore
 	@ManyToMany( cascade = CascadeType.MERGE, fetch = FetchType.LAZY)
 	Collection<Library> libraries = new ArrayList<Library>();
 	

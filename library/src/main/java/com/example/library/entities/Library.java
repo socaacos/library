@@ -12,6 +12,8 @@ import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToOne;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import lombok.Data;
 
 @Entity
@@ -25,6 +27,7 @@ public class Library {
 	@Column
 	private String libraryName;
 	
+	@JsonIgnore
 	@ManyToMany(mappedBy = "libraries",  cascade = CascadeType.ALL)
 	Collection<Book> books = new ArrayList<Book>();
 	
