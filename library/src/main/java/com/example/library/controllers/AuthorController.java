@@ -86,7 +86,7 @@ public class AuthorController {
 	public AuthorDto updateAuthor(@PathVariable int id, @RequestBody AuthorDto newAuthorDto) {
 		Author author = modelMapper.map(newAuthorDto, Author.class);		
 		Author newAuthor = authorService.update(id, author);		
-		return modelMapper.map(newAuthorDto, AuthorDto.class);	
+		return modelMapper.map(newAuthor, AuthorDto.class);	
 	    
 	}
 
