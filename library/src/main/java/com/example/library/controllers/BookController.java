@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.example.library.dtos.AuthorDto;
 import com.example.library.dtos.BookDto;
 import com.example.library.dtos.IBookMapper;
 import com.example.library.entities.Author;
@@ -42,9 +43,9 @@ public class BookController {
 	
 	@GetMapping()
 	@ResponseBody
-	public List<BookDto> getBooks(@RequestParam(required = false) Author author, @RequestParam(required = false) String title) {
+	public List<BookDto> getBooks(@RequestParam(required = false) AuthorDto authorDto, @RequestParam(required = false) String title) {
 		
-		if (author == null && title == null)
+		if (authorDto == null && title == null)
 		{
 			List<Book> books = bookService.getAll();
 			List<BookDto> bookDtos = new ArrayList<BookDto>();
@@ -54,6 +55,7 @@ public class BookController {
 						
 			return bookDtos;
 		}
+		Author author = modelMapper.map(authorDto, Author.class);
 		List<Book> books = bookService.getByPublisherOrTitle(author, title);
 		List<BookDto> bookDtos = new ArrayList<BookDto>();
 		for (Book book : books) {

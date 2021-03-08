@@ -13,8 +13,8 @@ public class BookDto
 {
 	private Integer id;
 	private String title;
-	private Author author;
+	private AuthorDto author;
 	private int publicationYear;
 	private int numPages;
-	private Collection<Library> libraries = new ArrayList<Library>();
+	private Collection<LibraryDto> libraries = new ArrayList<LibraryDto>();
 }

@@ -9,7 +9,7 @@ public class LibraryDto {
 	
 	private Integer id;
 	private String libraryName;
-	private City city;
+	private CityDto city;
 	private String address;
 
 }
