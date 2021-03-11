@@ -13,7 +13,7 @@ import lombok.extern.slf4j.Slf4j;
 @Component
 public class LogsAspect {
 	
-	@Pointcut("execution(* com.example.library.controllers.BookController.*(..))")
+	@Pointcut("execution(* com.example.library.controllers.BookC.*(..))")
 	public void controllerRoutes() 
 	{}	
 	@Around("controllerRoutes()")

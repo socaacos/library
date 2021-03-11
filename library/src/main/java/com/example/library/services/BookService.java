@@ -1,72 +1,101 @@
 package com.example.library.services;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.example.library.dtos.AuthorDto;
+import com.example.library.dtos.BookDto;
 import com.example.library.entities.Author;
 import com.example.library.entities.Book;
 import com.example.library.exceptions.BookNotFoundException;
 import com.example.library.repositories.BookRepository;
-
-import lombok.extern.slf4j.Slf4j;
 
 @Service
 
 public class BookService {
 	
 	@Autowired
-	BookRepository booksRepository;
+	BookRepository bookRepository;
 	
-	public List<Book> getAll()
+	@Autowired
+	ModelMapper modelMapper;
+	
+	public List<BookDto> getAll()
 	{
-		return (List<Book>)booksRepository.findAll();
+		List<Book> books = (List<Book>) bookRepository.findAll();
+		List<BookDto> bookDtos = new ArrayList<BookDto>();
+		for (Book book : books) {
+			bookDtos.add(modelMapper.map(book, BookDto.class));
+		}
+		return bookDtos;	
 	}
 	
-	public Book getById(int id)
+	public BookDto getById(int id)
 	{
-		Optional<Book> bookOptional = booksRepository.findById(id);
-		
-		if(bookOptional.isPresent())
-			return bookOptional.get();
+		Optional<Book> book = bookRepository.findById(id);
+		BookDto bookDto = modelMapper.map(book, BookDto.class);
+		if(bookDto != null)
+			return bookDto;
 		else
 			throw new BookNotFoundException();
 	}
 	
-	public List<Book> getByPublisherOrTitle(Author author, String title)
+	public List<BookDto> getByPublisherOrTitle(AuthorDto authorDto, String title)
 	{
-		return (List<Book>)booksRepository.findByAuthorOrTitle(author, title);
+		Author author = modelMapper.map(authorDto, Author.class);
+		List<Book> books = (List<Book>) bookRepository.findByAuthorOrTitle(author, title);
+		List<BookDto> bookDtos = new ArrayList<BookDto>();
+		for (Book book : books) {
+			bookDtos.add(modelMapper.map(book, BookDto.class));
+		}
+		return bookDtos;
 	}
 	
-	public List<Book> searchByTitle(String title)
+	public List<BookDto> searchByTitle(String title)
 	{
-		return (List<Book>)booksRepository.searchByTitle(title);
+		List<Book> books = (List<Book>) bookRepository.searchByTitle(title);
+		List<BookDto> bookDtos = new ArrayList<BookDto>();
+		for (Book book : books) {
+			bookDtos.add(modelMapper.map(book, BookDto.class));
+		}
+		return bookDtos;
 	}
 	
-	public Book create(Book newBook)
+	public BookDto create(BookDto newBookDto)
 	{
-		return booksRepository.save(newBook);
+		Book book = modelMapper.map(newBookDto, Book.class);
+		Book newBook = bookRepository.save(book);
+	    return modelMapper.map(newBook, BookDto.class);
 	}
 	
 	public void delete(int id)
 	{
-		Book book = getById(id);		
-		booksRepository.delete(book);
+		BookDto bookDto = getById(id);
+		Book book = modelMapper.map(bookDto, Book.class);
+		if(book != null)
+			bookRepository.delete(book);
+		else
+			System.out.println("Nema knjige");
 	}
 	
 	
-	public Book update(int id, Book newBook)
+	public BookDto update(int id, BookDto newBookDto)
 	{
-		Book book = getById(id);		
-		book.setNumPages(newBook.getNumPages());
-		book.setPublicationYear(newBook.getPublicationYear());
-		book.setLibraries(newBook.getLibraries());
-		book.setAuthor(newBook.getAuthor());
-		book.setTitle(newBook.getTitle());
+		BookDto bookDto = getById(id);
+		bookDto.setNumPages(newBookDto.getNumPages());
+		bookDto.setPublicationYear(newBookDto.getPublicationYear());
+		bookDto.setLibraries(newBookDto.getLibraries());
+		bookDto.setAuthor(newBookDto.getAuthor());
+		bookDto.setTitle(newBookDto.getTitle());
+		Book book = modelMapper.map(bookDto, Book.class);
+		bookRepository.save(book);
+		return modelMapper.map(book, BookDto.class);
 		
-		return booksRepository.save(book);
 	}
 
 }

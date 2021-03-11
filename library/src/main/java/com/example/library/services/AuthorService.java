@@ -1,13 +1,14 @@
 package com.example.library.services;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.EnableTransactionManagement;
-import org.springframework.transaction.annotation.Transactional;
 
+import com.example.library.dtos.AuthorDto;
 import com.example.library.entities.Author;
 import com.example.library.exceptions.BookNotFoundException;
 import com.example.library.repositories.AuthorRepository;
@@ -22,36 +23,50 @@ public class AuthorService {
 	@Autowired
 	BookRepository  bookRepository;
 	
-	public List<Author> getAll()
+	@Autowired
+	ModelMapper modelMapper;
+	
+	public List<AuthorDto> getAll()
 	{
-		return (List<Author>) authorRepository.findAll();
+		List<Author> authors = (List<Author>) authorRepository.findAll();
+		List<AuthorDto> authorDtos = new ArrayList<AuthorDto>();
+		for (Author author : authors) {
+			authorDtos.add(modelMapper.map(author, AuthorDto.class));
+		}
+		return authorDtos;		
 	}
 	
-	public Author getById(int id)
+	public AuthorDto getById(int id)
 	{
 		Optional<Author> author = authorRepository.findById(id);
-		
-		if(author.isPresent())
-			return author.get();
+		AuthorDto authorDto = modelMapper.map(author, AuthorDto.class);
+		if(authorDto != null)
+			return authorDto;
 		else
-			throw new BookNotFoundException();
+			throw new BookNotFoundException();	
 	}
 	
-	public List<Author> searchByName(String name)
+	public List<AuthorDto> searchByName(String name)
 	{
-		return (List<Author>)authorRepository.searchByName(name);
+		List<Author> authors= (List<Author>) authorRepository.searchByName(name);
+		List<AuthorDto> authorDtos = new ArrayList<AuthorDto>();
+		for (Author author : authors) {
+			authorDtos.add(modelMapper.map(author, AuthorDto.class));
+		}
+		return authorDtos;
 	}
 	
-	public Author create(Author newAuthor)
+	public AuthorDto create(AuthorDto newAuthorDto)
 	{
-		return authorRepository.save(newAuthor);
-	}
+		Author author = modelMapper.map(newAuthorDto, Author.class);
+		Author newAuthor= authorRepository.save(author);
+	    return modelMapper.map(newAuthor, AuthorDto.class);	}
 	
 	public void delete(int id)
 	{
-		Author author = getById(id);
-		if(author != null )
-		{
+		AuthorDto authorDto = getById(id);
+		Author author = modelMapper.map(authorDto, Author.class);
+		if(author != null) {
 			bookRepository.deleteByAuthor(author);
 			authorRepository.delete(author);
 		}
@@ -59,12 +74,13 @@ public class AuthorService {
 			System.out.println("Nema autora");
 	}
 	
-	public Author update(int id, Author newAuthor)
+	public AuthorDto update(int id, AuthorDto newAuthorDto)
 	{
-		Author author = getById(id);
-		author.setName(newAuthor.getName());
-		
-		return authorRepository.save(author);
+		AuthorDto authorDto = getById(id);
+		authorDto.setName(newAuthorDto.getName());
+		Author author = modelMapper.map(authorDto, Author.class);
+		authorRepository.save(author);
+		return modelMapper.map(author, AuthorDto.class);
 	}
 
 }

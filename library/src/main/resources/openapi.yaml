@@ -16,7 +16,7 @@ paths:
         in: query
         required: false
         schema:
-          $ref: '#/components/schemas/AuthorDto'
+          $ref: '#/components/schemas/Author'
       - name: title
         in: query
         required: false
@@ -30,7 +30,7 @@ paths:
               schema:
                 type: array
                 items:
-                  $ref: '#/components/schemas/BookDto'
+                  $ref: '#/components/schemas/Book'
     post:
       tags:
       - book-controller
@@ -39,7 +39,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/BookDto'
+              $ref: '#/components/schemas/Book'
         required: true
       responses:
         "200":
@@ -47,7 +47,7 @@ paths:
           content:
             '*/*':
               schema:
-                $ref: '#/components/schemas/BookDto'
+                $ref: '#/components/schemas/Book'
   /books/{id}:
     get:
       tags:
@@ -65,7 +65,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/BookDto'
+                $ref: '#/components/schemas/Book'
     put:
       tags:
       - book-controller
@@ -80,7 +80,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/BookDto'
+              $ref: '#/components/schemas/Book'
         required: true
       responses:
         "200":
@@ -88,7 +88,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/BookDto'
+                $ref: '#/components/schemas/Book'
     delete:
       tags:
       - book-controller
@@ -125,7 +125,7 @@ paths:
               schema:
                 type: array
                 items:
-                  $ref: '#/components/schemas/BookDto'
+                  $ref: '#/components/schemas/Book'
   /authors:
     get:
       tags:
@@ -139,7 +139,7 @@ paths:
               schema:
                 type: array
                 items:
-                  $ref: '#/components/schemas/AuthorDto'
+                  $ref: '#/components/schemas/Author'
     post:
       tags:
       - author-controller
@@ -148,7 +148,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/AuthorDto'
+              $ref: '#/components/schemas/Author'
         required: true
       responses:
         "200":
@@ -156,7 +156,7 @@ paths:
           content:
             '*/*':
               schema:
-                $ref: '#/components/schemas/AuthorDto'
+                $ref: '#/components/schemas/Author'
   /authors/{id}:
     get:
       tags:
@@ -175,7 +175,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/AuthorDto'
+                $ref: '#/components/schemas/Author'
     put:
       tags:
       - author-controller
@@ -191,7 +191,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/AuthorDto'
+              $ref: '#/components/schemas/Author'
         required: true
       responses:
         "200":
@@ -199,7 +199,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/AuthorDto'
+                $ref: '#/components/schemas/Author'
     delete:
       tags:
       - author-controller
@@ -237,7 +237,7 @@ paths:
               schema:
                 type: array
                 items:
-                  $ref: '#/components/schemas/AuthorDto'
+                  $ref: '#/components/schemas/Author'
   /libraries:
     get:
       tags:
@@ -251,7 +251,7 @@ paths:
               schema:
                 type: array
                 items:
-                  $ref: '#/components/schemas/LibraryDto'
+                  $ref: '#/components/schemas/Library'
     post:
       tags:
       - library-controller
@@ -260,7 +260,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/LibraryDto'
+              $ref: '#/components/schemas/Library'
         required: true
       responses:
         "200":
@@ -268,7 +268,7 @@ paths:
           content:
             '*/*':
               schema:
-                $ref: '#/components/schemas/LibraryDto'
+                $ref: '#/components/schemas/Library'
   /libraries/{id}:
     get:
       tags:
@@ -287,7 +287,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/LibraryDto'
+                $ref: '#/components/schemas/Library'
     put:
       tags:
       - library-controller
@@ -303,7 +303,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/LibraryDto'
+              $ref: '#/components/schemas/Library'
         required: true
       responses:
         "200":
@@ -311,7 +311,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/LibraryDto'
+                $ref: '#/components/schemas/Library'
     delete:
       tags:
       - library-controller
@@ -349,7 +349,7 @@ paths:
               schema:
                 type: array
                 items:
-                  $ref: '#/components/schemas/LibraryDto'
+                  $ref: '#/components/schemas/Library'
   /cities:
     get:
       tags:
@@ -363,7 +363,7 @@ paths:
               schema:
                 type: array
                 items:
-                  $ref: '#/components/schemas/CityDto'
+                  $ref: '#/components/schemas/City'
     post:
       tags:
       - city-controller
@@ -372,7 +372,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/CityDto'
+              $ref: '#/components/schemas/City'
         required: true
       responses:
         "200":
@@ -380,7 +380,7 @@ paths:
           content:
             '*/*':
               schema:
-                $ref: '#/components/schemas/CityDto'
+                $ref: '#/components/schemas/City'
   /cities/{id}:
     get:
       tags:
@@ -399,7 +399,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/CityDto'
+                $ref: '#/components/schemas/City'
     put:
       tags:
       - city-controller
@@ -415,7 +415,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/CityDto'
+              $ref: '#/components/schemas/City'
         required: true
       responses:
         "200":
@@ -423,7 +423,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/CityDto'
+                $ref: '#/components/schemas/City'
     delete:
       tags:
       - city-controller
@@ -461,10 +461,10 @@ paths:
               schema:
                 type: array
                 items:
-                  $ref: '#/components/schemas/CityDto'
+                  $ref: '#/components/schemas/City'
 components:
   schemas:
-    BookDto:
+    Book:
       type: object
       properties:
         id:
@@ -472,7 +472,7 @@ components:
         title:
           type: string
         author:
-          $ref: '#/components/schemas/AuthorDto'
+          $ref: '#/components/schemas/Author'
         publicationYear:
           type: integer
         numPages:
@@ -480,22 +480,22 @@ components:
         libraries:
           type: array
           items:
-            $ref: '#/components/schemas/LibraryDto'
-    AuthorDto:
+            $ref: '#/components/schemas/Library'
+    Author:
       type: object
       properties:
         id:
           type: integer
         name:
           type: string
-    CityDto:
+    City:
       type: object
       properties:
         id:
           type: integer
         cityName:
           type: string
-    LibraryDto:
+    Library:
       type: object
       properties:
         id:
@@ -503,6 +503,6 @@ components:
         libraryName:
           type: string
         city:
-          $ref: '#/components/schemas/CityDto'
+          $ref: '#/components/schemas/City'
         address:
           type: string
