@@ -36,9 +36,13 @@ public class LibraryService {
 	public LibraryDto getById(int id)
 	{
 		Optional<Library> library = libraryRepository.findById(id);
-		LibraryDto libraryDto = modelMapper.map(library, LibraryDto.class);
-		if(libraryDto != null)
+		
+		if(library.isPresent())
+		{
+			LibraryDto libraryDto = modelMapper.map(library.get(), LibraryDto.class);
+
 			return libraryDto;
+		}
 		else
 			throw new BookNotFoundException();	
 	}

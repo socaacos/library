@@ -102,26 +102,26 @@
 		<!-- https://mvnrepository.com/artifact/io.swagger/swagger-annotations -->
 		<!-- https://mvnrepository.com/artifact/io.swagger/swagger-annotations -->
 		<!-- https://mvnrepository.com/artifact/io.swagger.core.v3/swagger-annotations -->
-<!-- https://mvnrepository.com/artifact/io.swagger.core.v3/swagger-annotations -->
-<dependency>
-    <groupId>io.swagger.core.v3</groupId>
-    <artifactId>swagger-core</artifactId>
-    <version>2.1.7</version>
-</dependency>
+		<!-- https://mvnrepository.com/artifact/io.swagger.core.v3/swagger-annotations -->
+		<dependency>
+			<groupId>io.swagger.core.v3</groupId>
+			<artifactId>swagger-core</artifactId>
+			<version>2.1.7</version>
+		</dependency>
 
-		
+
 		<dependency>
 			<groupId>com.google.code.findbugs</groupId>
 			<artifactId>jsr305</artifactId>
 			<version>3.0.2</version>
 		</dependency>
-		
+
 		<dependency>
 			<groupId>io.springfox</groupId>
 			<artifactId>springfox-boot-starter</artifactId>
 			<version>3.0.0</version>
 		</dependency>
-		
+
 		<dependency>
 			<groupId>org.openapitools</groupId>
 			<artifactId>jackson-databind-nullable</artifactId>
@@ -146,6 +146,11 @@
 					<target>1.8</target>
 					<annotationProcessorPaths>
 						<path>
+							<groupId>org.projectlombok</groupId>
+							<artifactId>lombok</artifactId>
+							<version>${lombok.version}</version>
+						</path>
+						<path>
 							<groupId>org.mapstruct</groupId>
 							<artifactId>mapstruct-processor</artifactId>
 							<version>${org.mapstruct.version}</version>
@@ -168,10 +173,10 @@
 							<configOptions>
 								<sourceFolder>src/gen/java/main</sourceFolder>
 								<serializableModel>true</serializableModel>
-                                <dateLibrary>java8</dateLibrary>
-                                <interfaceOnly>true</interfaceOnly>
-                                <delegatePattern>true</delegatePattern>
-                                <hideGenerationTimestamp>true</hideGenerationTimestamp>
+								<dateLibrary>java8</dateLibrary>
+								<interfaceOnly>true</interfaceOnly>
+								<delegatePattern>true</delegatePattern>
+								<hideGenerationTimestamp>true</hideGenerationTimestamp>
 							</configOptions>
 						</configuration>
 					</execution>

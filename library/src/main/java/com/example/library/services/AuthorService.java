@@ -39,9 +39,13 @@ public class AuthorService {
 	public AuthorDto getById(int id)
 	{
 		Optional<Author> author = authorRepository.findById(id);
-		AuthorDto authorDto = modelMapper.map(author, AuthorDto.class);
-		if(authorDto != null)
+		
+		if(author.isPresent())
+		{
+			AuthorDto authorDto = modelMapper.map(author.get(), AuthorDto.class);
 			return authorDto;
+		}
+			
 		else
 			throw new BookNotFoundException();	
 	}

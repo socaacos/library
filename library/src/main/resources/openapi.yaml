@@ -11,22 +11,11 @@ paths:
       tags:
       - book-controller
       operationId: getBooks
-      parameters:
-      - name: authorDto
-        in: query
-        required: false
-        schema:
-          $ref: '#/components/schemas/Author'
-      - name: title
-        in: query
-        required: false
-        schema:
-          type: string
       responses:
         "200":
           description: OK
           content:
-            '*/*':
+            application/json:
               schema:
                 type: array
                 items:
@@ -45,7 +34,7 @@ paths:
         "200":
           description: OK
           content:
-            '*/*':
+            application/json:
               schema:
                 $ref: '#/components/schemas/Book'
   /books/{id}:
@@ -121,7 +110,32 @@ paths:
         "200":
           description: OK
           content:
-            '*/*':
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Book'
+  /books/byAuthor:
+    get:
+      tags:
+      - book-controller
+      operationId: booksByAuthor
+      parameters:
+      - name: authorDto
+        in: query
+        required: false
+        schema:
+          $ref: '#/components/schemas/Author'
+      - name: title
+        in: query
+        required: false
+        schema:
+          type: string
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
               schema:
                 type: array
                 items:
@@ -135,7 +149,7 @@ paths:
         "200":
           description: OK
           content:
-            '*/*':
+            application/json:
               schema:
                 type: array
                 items:
@@ -154,7 +168,7 @@ paths:
         "200":
           description: OK
           content:
-            '*/*':
+            application/json:
               schema:
                 $ref: '#/components/schemas/Author'
   /authors/{id}:
@@ -233,7 +247,7 @@ paths:
         "200":
           description: OK
           content:
-            '*/*':
+            application/json:
               schema:
                 type: array
                 items:
@@ -247,7 +261,7 @@ paths:
         "200":
           description: OK
           content:
-            '*/*':
+            application/json:
               schema:
                 type: array
                 items:
@@ -266,7 +280,7 @@ paths:
         "200":
           description: OK
           content:
-            '*/*':
+            application/json:
               schema:
                 $ref: '#/components/schemas/Library'
   /libraries/{id}:
@@ -345,7 +359,7 @@ paths:
         "200":
           description: OK
           content:
-            '*/*':
+            application/json:
               schema:
                 type: array
                 items:
@@ -359,7 +373,7 @@ paths:
         "200":
           description: OK
           content:
-            '*/*':
+            application/json:
               schema:
                 type: array
                 items:
@@ -378,7 +392,7 @@ paths:
         "200":
           description: OK
           content:
-            '*/*':
+            application/json:
               schema:
                 $ref: '#/components/schemas/City'
   /cities/{id}:
@@ -457,7 +471,7 @@ paths:
         "200":
           description: OK
           content:
-            '*/*':
+            application/json:
               schema:
                 type: array
                 items:

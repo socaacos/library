@@ -27,22 +27,23 @@ public class BookC implements BooksApi {
 	ModelMapper modelMapper;
 
 	@Override
-	public ResponseEntity<List<Book>> getBooks(Author authorDto, String title) {
-		if (authorDto == null && title == null) {
-			List<BookDto> books = bookService.getAll();
-			List<Book> booksApi = new ArrayList<Book>();
-			for (BookDto book : books) {
-				booksApi.add(modelMapper.map(book, Book.class));
-			}
-			return new ResponseEntity<List<Book>>(booksApi, HttpStatus.OK);
+	public ResponseEntity<List<Book>> getBooks() {
+		List<BookDto> books = bookService.getAll();
+		List<Book> booksApi = new ArrayList<Book>();
+		for (BookDto book : books) {
+			booksApi.add(modelMapper.map(book, Book.class));			
 		}
+		return new ResponseEntity<List<Book>>(booksApi, HttpStatus.OK);
+	}
+	
+	@Override
+	public ResponseEntity<List<Book>> booksByAuthor(Author authorDto, String title) {
 		AuthorDto author = modelMapper.map(authorDto, AuthorDto.class);
 		List<BookDto> books = bookService.getByPublisherOrTitle(author, title);
 		List<Book> booksApi = new ArrayList<Book>();
 		for (BookDto book : books) {
-			booksApi.add(modelMapper.map(book, Book.class));
+			booksApi.add(modelMapper.map(book, Book.class));			
 		}
-					
 		return new ResponseEntity<List<Book>>(booksApi, HttpStatus.OK);
 	}
 

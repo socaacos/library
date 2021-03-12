@@ -39,9 +39,12 @@ public class CityService {
 	public CityDto getById(int id)
 	{
 		Optional<City> city = cityRepository.findById(id);
-		CityDto cityDto = modelMapper.map(city, CityDto.class);
-		if(cityDto != null)
+		
+		if(city.isPresent())
+		{
+			CityDto cityDto = modelMapper.map(city.get(), CityDto.class);
 			return cityDto;
+		}
 		else
 			throw new BookNotFoundException();	
 	}
