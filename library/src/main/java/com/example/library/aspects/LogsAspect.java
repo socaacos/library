@@ -31,7 +31,7 @@ public class LogsAspect {
 		return handleAspect(jp, "service");
 	}
 	
-	@Pointcut("execution(* com.example.library.services.BookService.*(..))")
+	@Pointcut("execution(* com.example.library.repositories.BookRepository.*(..))")
 	public void repository() 
 	{}
 	@Around("repository()")

@@ -55,6 +55,7 @@ public class AuthorC implements AuthorsApi {
 	
 	@Override
 	public ResponseEntity<Author> createAuthor(Author author) {
+		System.out.println(author);
 		AuthorDto authorDto = modelMapper.map(author, AuthorDto.class);
 		AuthorDto newAuthor = authorService.create(authorDto);
 		Author authorApi = modelMapper.map(newAuthor, Author.class);
