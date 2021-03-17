@@ -25,21 +25,21 @@ public class BookC implements BooksApi {
 
 	@Autowired
 	ModelMapper modelMapper;
-
+	
 	@Override
-	public ResponseEntity<List<Book>> getBooks() {
-		List<BookDto> books = bookService.getAll();
+	public ResponseEntity<List<Book>> getBooks(Integer page) {
+		List<BookDto> books = bookService.findPaginated(page == null?1:page);
 		List<Book> booksApi = new ArrayList<Book>();
 		for (BookDto book : books) {
 			booksApi.add(modelMapper.map(book, Book.class));			
 		}
 		return new ResponseEntity<List<Book>>(booksApi, HttpStatus.OK);
 	}
-	
+
 	@Override
-	public ResponseEntity<List<Book>> booksByAuthor(Author authorDto, String title) {
+	public ResponseEntity<List<Book>> booksByAuthor(Author authorDto, String title, Integer page) {
 		AuthorDto author = modelMapper.map(authorDto, AuthorDto.class);
-		List<BookDto> books = bookService.getByPublisherOrTitle(author, title);
+		List<BookDto> books = bookService.getByPublisherOrTitle(author, title, page==null?1:page);
 		List<Book> booksApi = new ArrayList<Book>();
 		for (BookDto book : books) {
 			booksApi.add(modelMapper.map(book, Book.class));			
@@ -55,8 +55,8 @@ public class BookC implements BooksApi {
 	}
 
 	@Override
-	public ResponseEntity<List<Book>> searchBooks(String title) {
-		List<BookDto> books = bookService.searchByTitle(title);
+	public ResponseEntity<List<Book>> searchBooks(String title, Integer page) {
+		List<BookDto> books = bookService.searchByTitle(title, page==null?1:page);
 		List<Book> booksApi = new ArrayList<Book>();
 		for (BookDto book : books) {
 			booksApi.add(modelMapper.map(book, Book.class));

@@ -6,6 +6,10 @@ import java.util.Optional;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.example.library.dtos.AuthorDto;
@@ -17,7 +21,10 @@ import com.example.library.repositories.BookRepository;
 
 @Service
 
-public class BookService {
+public class BookService{
+	
+	@Value("${spring.data.rest.default-page-size}")
+	private Integer  pageSize;
 	
 	@Autowired
 	BookRepository bookRepository;
@@ -25,15 +32,17 @@ public class BookService {
 	@Autowired
 	ModelMapper modelMapper;
 	
-	public List<BookDto> getAll()
-	{
-		List<Book> books = (List<Book>) bookRepository.findAll();
-		List<BookDto> bookDtos = new ArrayList<BookDto>();
-		for (Book book : books) {
-			bookDtos.add(modelMapper.map(book, BookDto.class));
-		}
-		return bookDtos;	
+	public List<BookDto> findPaginated(int pageNo) {
+		  Pageable paging = PageRequest.of(pageNo, pageSize);
+	      Page<Book> pagedResult = bookRepository.findAll(paging);
+	      List<Book> books = pagedResult.toList();
+	      List<BookDto> bookDtos = new ArrayList<BookDto>();
+			for (Book book : books) {
+				bookDtos.add(modelMapper.map(book, BookDto.class));
+			}
+			return bookDtos;
 	}
+	
 	
 	public BookDto getById(int id)
 	{
@@ -48,10 +57,11 @@ public class BookService {
 			throw new BookNotFoundException();
 	}
 	
-	public List<BookDto> getByPublisherOrTitle(AuthorDto authorDto, String title)
+	public List<BookDto> getByPublisherOrTitle(AuthorDto authorDto, String title, Integer page)
 	{
+		Pageable paging = PageRequest.of(page, pageSize);
 		Author author = modelMapper.map(authorDto, Author.class);
-		List<Book> books = (List<Book>) bookRepository.findByAuthorOrTitle(author, title);
+		List<Book> books = (List<Book>) bookRepository.findByAuthorOrTitle(author, title, paging);
 		List<BookDto> bookDtos = new ArrayList<BookDto>();
 		for (Book book : books) {
 			bookDtos.add(modelMapper.map(book, BookDto.class));
@@ -59,9 +69,11 @@ public class BookService {
 		return bookDtos;
 	}
 	
-	public List<BookDto> searchByTitle(String title)
+	public List<BookDto> searchByTitle(String title, int page)
 	{
-		List<Book> books = (List<Book>) bookRepository.searchByTitle(title);
+		Pageable paging = PageRequest.of(page, pageSize);
+
+		List<Book> books = (List<Book>) bookRepository.searchByTitle(title, paging);
 		List<BookDto> bookDtos = new ArrayList<BookDto>();
 		for (Book book : books) {
 			bookDtos.add(modelMapper.map(book, BookDto.class));
@@ -100,5 +112,7 @@ public class BookService {
 		return modelMapper.map(book, BookDto.class);
 		
 	}
+
+	
 
 }

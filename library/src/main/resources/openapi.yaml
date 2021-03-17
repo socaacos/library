@@ -11,6 +11,12 @@ paths:
       tags:
       - book-controller
       operationId: getBooks
+      parameters:
+      - name: page
+        in: query
+        required: false
+        schema:
+          type: integer
       responses:
         "200":
           description: OK
@@ -106,6 +112,10 @@ paths:
         required: true
         schema:
           type: string
+      - name: page
+        in: query
+        schema:
+          type: integer
       responses:
         "200":
           description: OK
@@ -131,6 +141,11 @@ paths:
         required: false
         schema:
           type: string
+      - name: page
+        in: query
+        required: false
+        schema:
+          type: integer
       responses:
         "200":
           description: OK
