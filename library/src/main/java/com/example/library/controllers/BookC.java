@@ -10,6 +10,7 @@ import org.openapitools.model.Book;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Controller;
 
 import com.example.library.dtos.AuthorDto;
@@ -56,6 +57,8 @@ public class BookC implements BooksApi {
 
 	@Override
 	public ResponseEntity<List<Book>> searchBooks(String title, Integer page) {
+		
+		
 		List<BookDto> books = bookService.searchByTitle(title, page==null?1:page);
 		List<Book> booksApi = new ArrayList<Book>();
 		for (BookDto book : books) {
