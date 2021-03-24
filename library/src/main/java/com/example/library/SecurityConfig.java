@@ -51,23 +51,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter implements WebM
     public void addCorsMappings(CorsRegistry registry) {
         registry.addMapping("/**").allowedMethods("*");
     }
-	
-	/*@Override
-	protected void configure(AuthenticationManagerBuilder authManagerBuilder) throws Exception {
-		authManagerBuilder.authenticationProvider(authProvider);
-//		authManagerBuilder.inMemoryAuthentication()
-//		.withUser("sofija")
-//		.password("sofija")
-//		.roles("admin");
-	}*/
-	
-	
-	
-	@Bean
-    public BCryptPasswordEncoder bCryptPasswordEncoder() {
-        return new BCryptPasswordEncoder();
-    }
-	
+		
 	@Bean
 	@Override
 	public AuthenticationManager authenticationManagerBean() throws Exception {

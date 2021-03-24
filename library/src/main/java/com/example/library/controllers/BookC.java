@@ -1,5 +1,10 @@
 package com.example.library.controllers;
 
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -8,8 +13,11 @@ import org.openapitools.api.BooksApi;
 import org.openapitools.model.Author;
 import org.openapitools.model.Book;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.ClassPathResource;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.scheduling.annotation.EnableScheduling;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Controller;
 
@@ -17,7 +25,10 @@ import com.example.library.dtos.AuthorDto;
 import com.example.library.dtos.BookDto;
 import com.example.library.services.BookService;
 
+import lombok.extern.slf4j.Slf4j;
+
 @Controller
+@Slf4j
 
 public class BookC implements BooksApi {
 
@@ -26,6 +37,17 @@ public class BookC implements BooksApi {
 
 	@Autowired
 	ModelMapper modelMapper;
+	
+	@Scheduled(fixedDelay = 20000)
+	public void whenWriteStringUsingBufferedWritter_thenCorrect() throws IOException {
+		String EXTERNAL_FILE_PATH = "src/main/java/Knjige.txt";
+		File file = Paths.get(EXTERNAL_FILE_PATH).toFile();
+		String str = "Hello";
+		BufferedWriter writer = new BufferedWriter(new FileWriter(file));
+		writer.write(str);
+		writer.close();
+			
+	}
 	
 	@Override
 	public ResponseEntity<List<Book>> getBooks(Integer page) {
