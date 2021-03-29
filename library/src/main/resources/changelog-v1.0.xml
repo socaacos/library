@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+         http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.8.xsd">
+
+	<changeSet author="sophia" id="1">
+		<createTable tableName="author">
+			<column autoIncrement="true" name="id" type="INTEGER">
+				<constraints nullable="false" primaryKey="true" primaryKeyName="actor_pkey" />
+			</column>
+			<column name="name" type="VARCHAR2(255)" />
+		</createTable>
+	</changeSet>
+
+	<changeSet author="Sofija" id="2">
+		<createTable tableName="book">
+			<column autoIncrement="true" name="id" type="INTEGER">
+				<constraints nullable="false" primaryKey="true" />
+			</column>
+			<column name="title" type="VARCHAR2(15)" />
+			<column name="num_pages" type="INTEGER" />
+			<column name="publication_year" type="INTEGER" />
+			<column name="author_id" type="INTEGER">
+				<constraints nullable="false" foreignKeyName="author_id" references="author(ID)" />
+			</column>
+		</createTable>
+	</changeSet>
+
+	<changeSet author="sophia" id="3">
+		<createTable tableName="city">
+			<column autoIncrement="true" name="id" type="INTEGER">
+				<constraints nullable="false" primaryKey="true" />
+			</column>
+			<column name="city_name" type="VARCHAR2(255)" />
+		</createTable>
+	</changeSet>
+
+	<changeSet author="sophia" id="4">
+		<createTable tableName="role">
+			<column autoIncrement="true" name="id" type="INTEGER">
+				<constraints nullable="false" primaryKey="true" />
+			</column>
+			<column name="role_name" type="VARCHAR2(255)" />
+		</createTable>
+	</changeSet>
+
+	<changeSet author="sophia" id="5">
+		<createTable tableName="users">
+			<column autoIncrement="true" name="id" type="INTEGER">
+				<constraints nullable="false" primaryKey="true" />
+			</column>
+			<column name="username" type="VARCHAR2(255)" />
+			<column name="password" type="VARCHAR2(255)" />
+		</createTable>
+	</changeSet>
+
+	<changeSet author="sophia" id="6">
+		<addColumn tableName="users">
+			<column name="role_id" type="INTEGER">
+				<constraints nullable="false" foreignKeyName="role_id" references="role(id)" />
+			</column>
+		</addColumn>
+	</changeSet>
+
+	<changeSet author="sophia" id="7">
+		<createTable tableName="library">
+			<column autoIncrement="true" name="id" type="INTEGER">
+				<constraints nullable="false" primaryKey="true" />
+			</column>
+			<column name="library_name" type="VARCHAR2(255)" />
+			<column name="address" type="VARCHAR2(255)" />
+		</createTable>
+	</changeSet>
+
+	<changeSet author="sophia" id="8">
+		<addColumn tableName="library">
+			<column name="city_id" type="INTEGER">
+				<constraints nullable="false" foreignKeyName="city_id" references="city(id)" />
+			</column>
+		</addColumn>
+	</changeSet>
+
+	<changeSet author="sophia" id="9">
+		<insert tableName="role">
+			<column name="role_name" value="admin" />
+			<column name="role_name" value="admin" />
+		</insert>
+	</changeSet>
+
+	<changeSet author="sophia" id="10">
+		<insert tableName="role">
+			<column name="role_name" value="user" />
+		</insert>
+	</changeSet>
+
+	<changeSet author="sophia" id="11">
+		<insert tableName="users">
+			<column name="username" value="sofija" />
+			<column name="password" value="$2a$10$eyp4hHEo40Pb8RPMImcwbuaQw52kv6PZMQveZ/8iKGZlyjfW8EgAK" />
+			<column name="role_id" value="1" />
+		</insert>
+	</changeSet>
+
+	<changeSet author="sophia" id="12">
+		<insert tableName="users">
+			<column name="username" value="user" />
+			<column name="password" value="$2a$10$D6879HSx88MqCBOTxvuX8.BnfFJuPZE6f2T01/9lZp6wP4WVaUyLS" />
+			<column name="role_id" value="2" />
+		</insert>
+	</changeSet>
+
+	<changeSet author="sofija" id="13">
+		<dropColumn tableName="book">
+			<column name="title" />
+		</dropColumn>
+	</changeSet>
+
+	<changeSet author="sophia" id="14">
+		<addColumn tableName="book">
+			<column name="title" type="VARCHAR(255)"></column>
+		</addColumn>
+	</changeSet>
+
+	<changeSet author="sophia" id="15">
+		<createTable tableName="book_libraries">
+			<column name="books_id" type="INTEGER">
+				<constraints nullable="false" foreignKeyName="books_id" references="book(id)" />
+			</column>
+			<column name="libraries_id" type="INTEGER">
+				<constraints nullable="false" foreignKeyName="libraries_id" references="library(id)" />
+			</column>
+		</createTable>
+	</changeSet>
+</databaseChangeLog>

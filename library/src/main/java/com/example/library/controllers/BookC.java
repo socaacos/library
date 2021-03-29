@@ -38,7 +38,7 @@ public class BookC implements BooksApi {
 	@Autowired
 	ModelMapper modelMapper;
 	
-	@Scheduled(fixedDelay = 20000)
+	/*@Scheduled(fixedDelay = 20000)
 	public void whenWriteStringUsingBufferedWritter_thenCorrect() throws IOException {
 		String EXTERNAL_FILE_PATH = "src/main/java/Knjige.txt";
 		File file = Paths.get(EXTERNAL_FILE_PATH).toFile();
@@ -47,7 +47,7 @@ public class BookC implements BooksApi {
 		writer.write(str);
 		writer.close();
 			
-	}
+	}*/
 	
 	@Override
 	public ResponseEntity<List<Book>> getBooks(Integer page) {
