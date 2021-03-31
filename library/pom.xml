@@ -155,6 +155,12 @@
 			<artifactId>liquibase-core</artifactId>
 		</dependency>
 
+		<!-- https://mvnrepository.com/artifact/org.springframework.cloud/spring-cloud-config-server -->
+		<dependency>
+			<groupId>org.springframework.cloud</groupId>
+			<artifactId>spring-cloud-config-server</artifactId>
+			<version>3.0.3</version>
+		</dependency>
 
 
 	</dependencies>
