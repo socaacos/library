@@ -18,9 +18,28 @@
 	<properties>
 		<org.mapstruct.version>1.1.0.Final</org.mapstruct.version>
 		<java.version>11</java.version>
+		<spring.cloud-version>2020.0.2</spring.cloud-version>
 	</properties>
 
+	<dependencyManagement>
+		<dependencies>
+			<dependency>
+				<groupId>org.springframework.cloud</groupId>
+				<artifactId>spring-cloud-dependencies</artifactId>
+				<version>${spring.cloud-version}</version>
+				<type>pom</type>
+				<scope>import</scope>
+			</dependency>
+		</dependencies>
+	</dependencyManagement>
+
 	<dependencies>
+
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-actuator</artifactId>
+		</dependency>
+
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-web</artifactId>
@@ -106,6 +125,10 @@
 			<version>2.1.7</version>
 		</dependency>
 
+		<dependency>
+			<groupId>org.springframework.cloud</groupId>
+			<artifactId>spring-cloud-starter-bootstrap</artifactId>
+		</dependency>
 
 		<dependency>
 			<groupId>com.google.code.findbugs</groupId>
@@ -158,9 +181,16 @@
 		<!-- https://mvnrepository.com/artifact/org.springframework.cloud/spring-cloud-config-server -->
 		<dependency>
 			<groupId>org.springframework.cloud</groupId>
-			<artifactId>spring-cloud-config-server</artifactId>
-			<version>3.0.3</version>
+			<artifactId>spring-cloud-starter-config</artifactId>
 		</dependency>
+
+		<!-- https://mvnrepository.com/artifact/org.springframework/spring-web -->
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-web</artifactId>
+			<version>5.3.5</version>
+		</dependency>
+
 
 
 	</dependencies>

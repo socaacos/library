@@ -8,6 +8,7 @@ import org.openapitools.api.AuthorsApi;
 import org.openapitools.model.Author;
 import org.openapitools.model.City;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cloud.context.config.annotation.RefreshScope;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.annotation.Secured;
@@ -18,6 +19,7 @@ import com.example.library.dtos.CityDto;
 import com.example.library.services.AuthorService;
 
 @Controller
+@RefreshScope
 
 public class AuthorC implements AuthorsApi {
 	

@@ -7,6 +7,7 @@ import java.util.Optional;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.cloud.context.config.annotation.RefreshScope;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -20,10 +21,12 @@ import com.example.library.exceptions.BookNotFoundException;
 import com.example.library.repositories.BookRepository;
 
 @Service
+@RefreshScope
+
 
 public class BookService{
 	
-	@Value("${spring.data.rest.default-page-size}")
+	@Value("${pageSize}")
 	private Integer  pageSize;
 	
 	@Autowired
