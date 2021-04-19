@@ -16,7 +16,7 @@ import com.example.library.repositories.BookRepository;
 @Service
 
 public class AuthorService {
-	
+
 	@Autowired
 	AuthorRepository  authorRepository;
 	
@@ -66,16 +66,17 @@ public class AuthorService {
 		Author newAuthor= authorRepository.save(author);
 	    return modelMapper.map(newAuthor, AuthorDto.class);	}
 	
-	public void delete(int id)
+	public boolean delete(int id)
 	{
 		AuthorDto authorDto = getById(id);
 		Author author = modelMapper.map(authorDto, Author.class);
 		if(author != null) {
 			bookRepository.deleteByAuthor(author);
 			authorRepository.delete(author);
+			return true;
 		}
 		else
-			System.out.println("Nema autora");
+			return false;
 	}
 	
 	public AuthorDto update(int id, AuthorDto newAuthorDto)

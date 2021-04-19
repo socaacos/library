@@ -1,17 +1,10 @@
 package com.example.library.entities;
 
-import java.util.ArrayList;
-import java.util.Collection;
-
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.OneToMany;
 
 import lombok.Data;
 
@@ -19,6 +12,16 @@ import lombok.Data;
 @Data
 
 public class Author {
+	public Author() {}
+	
+	public Author(int id, String name) {
+		this.id = id;
+		this.name = name;
+	}
+
+	public Author(String name) {
+		this.name = name;
+	}
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
