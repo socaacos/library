@@ -3,6 +3,7 @@ package com.example.library;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Profile;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
@@ -27,7 +28,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter implements WebM
 	
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
-		 http.csrf().disable()
+		 /*http.csrf().disable()
 		 .authenticationProvider(authProvider)
 		 .authorizeRequests()
 		 .antMatchers(HttpMethod.GET).permitAll()
@@ -40,6 +41,24 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter implements WebM
 		 .and()
 		 .authorizeRequests()
 		 .antMatchers(HttpMethod.DELETE).hasAuthority("admin")
+		 .anyRequest()
+		 .authenticated()
+		 .and()
+		 .httpBasic();*/
+		
+		 http.csrf().disable()
+		 .authenticationProvider(authProvider)
+		 .authorizeRequests()
+		 .antMatchers(HttpMethod.GET).permitAll()
+		 .and()
+		 .authorizeRequests()
+		 .antMatchers(HttpMethod.PUT).permitAll()
+		 .and()
+		 .authorizeRequests()
+		 .antMatchers(HttpMethod.POST).permitAll()
+		 .and()
+		 .authorizeRequests()
+		 .antMatchers(HttpMethod.DELETE).permitAll()
 		 .anyRequest()
 		 .authenticated()
 		 .and()

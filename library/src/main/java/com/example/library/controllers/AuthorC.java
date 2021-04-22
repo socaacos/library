@@ -17,6 +17,7 @@ import org.springframework.stereotype.Controller;
 import com.example.library.dtos.AuthorDto;
 import com.example.library.dtos.CityDto;
 import com.example.library.services.AuthorService;
+import com.example.library.services.KafkaSender;
 
 @Controller
 @RefreshScope
@@ -27,7 +28,11 @@ public class AuthorC implements AuthorsApi {
 	AuthorService authorService;
 	
 	@Autowired
+	KafkaSender kafkaSender;
+	
+	@Autowired
 	ModelMapper modelMapper;
+	
 	
 	@Override
 	public ResponseEntity<List<Author>> getAuthors() {
@@ -42,6 +47,7 @@ public class AuthorC implements AuthorsApi {
 	@Override
 	public ResponseEntity<Author> getAuthorById(Integer id) {
 		AuthorDto authorDto = authorService.getById(id);
+		kafkaSender.sendData(authorDto);
 		Author authorApi = modelMapper.map(authorDto, Author.class);
 		return new ResponseEntity<Author>(authorApi, HttpStatus.OK);
 	}

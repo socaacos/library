@@ -29,7 +29,6 @@ import com.google.common.collect.Lists;
 
 @SpringBootTest
 @AutoConfigureMockMvc
-
 class AuthorCTest {
 
 	@MockBean
