@@ -2,9 +2,7 @@ package com.example.library.services;
 
 import java.util.HashMap;
 import java.util.Map;
-import java.util.logging.Logger;
 
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.kafka.core.KafkaTemplate;
@@ -20,12 +18,12 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class KafkaSender {
 	
-	@Autowired
-	private KafkaTemplate<String, String> kafkaTemplate;
-	
 	@Value("${kafka.topic.name}")
 	private String topicName;
 	
+	@Autowired
+	private KafkaTemplate<String, String> kafkaTemplate;
+		
 	public void sendData( AuthorDto author) {
 		Map<String, Object> headers = new HashMap<>();
 		headers.put(KafkaHeaders.TOPIC, topicName);

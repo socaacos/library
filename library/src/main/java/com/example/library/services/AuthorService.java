@@ -24,7 +24,11 @@ public class AuthorService {
 	BookRepository  bookRepository;
 	
 	@Autowired
+	KafkaSender kafkaSender;
+	
+	@Autowired
 	ModelMapper modelMapper;
+	
 	
 	public List<AuthorDto> getAll()
 	{
@@ -43,6 +47,7 @@ public class AuthorService {
 		if(author.isPresent())
 		{
 			AuthorDto authorDto = modelMapper.map(author.get(), AuthorDto.class);
+			kafkaSender.sendData(authorDto);
 			return authorDto;
 		}
 			

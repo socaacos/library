@@ -25,9 +25,8 @@ import com.example.library.repositories.BookRepository;
 
 
 public class BookService{
-	
 	@Value("${pageSize}")
-	private Integer  pageSize;
+	public  Integer  pageSize;
 	
 	@Autowired
 	BookRepository bookRepository;
